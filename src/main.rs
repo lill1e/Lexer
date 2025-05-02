@@ -62,6 +62,10 @@ fn lex_string(chars: &mut Peekable<Chars>) -> Result<Token, &'static str> {
         match chars.next() {
             Some(c) => match c {
                 '"' => break,
+                '\n' => {
+                    error = true;
+                    break;
+                }
                 _ => accumulator.push(c),
             },
             None => {
