@@ -114,6 +114,77 @@ fn lex_indetifier(chars: &mut Peekable<Chars>) -> Token {
     }
 }
 
+fn lex_operator(chars: &mut Peekable<Chars>) -> Token {
+    match chars.next().unwrap() {
+        '+' => Token::new(Type::Operator(Operator::Plus)),
+        '-' => Token::new(Type::Operator(Operator::Minus)),
+        '*' => Token::new(Type::Operator(Operator::Star)),
+        '/' => Token::new(Type::Operator(Operator::Slash)),
+        '=' => match chars.peek() {
+            Some(c) => match c {
+                '=' => {
+                    chars.next();
+                    return Token::new(Type::Operator(Operator::DoubleEquals));
+                }
+                _ => Token::new(Type::Operator(Operator::Equals)),
+            },
+            None => Token::none(), // TODO: produce errors
+        },
+        '!' => match chars.peek() {
+            Some(c) => match c {
+                '=' => {
+                    chars.next();
+                    return Token::new(Type::Operator(Operator::NotEquals));
+                }
+                _ => Token::new(Type::Operator(Operator::Bang)),
+            },
+            None => Token::none(), // TODO: produce errors
+        },
+        '%' => Token::new(Type::Operator(Operator::Mod)),
+        '>' => match chars.peek() {
+            Some(c) => match c {
+                '=' => {
+                    chars.next();
+                    return Token::new(Type::Operator(Operator::GreaterEqual));
+                }
+                _ => Token::new(Type::Operator(Operator::Greater)),
+            },
+            None => Token::none(), // TODO: produce errors
+        },
+        '<' => match chars.peek() {
+            Some(c) => match c {
+                '=' => {
+                    chars.next();
+                    Token::new(Type::Operator(Operator::LessEqual))
+                }
+                _ => Token::new(Type::Operator(Operator::Less)),
+            },
+            None => Token::none(), // TODO: produce errors
+        },
+        '&' => match chars.peek() {
+            Some(c) => match c {
+                '&' => {
+                    chars.next();
+                    return Token::new(Type::Operator(Operator::And));
+                }
+                _ => Token::none(), // TODO: produce errors
+            },
+            None => Token::none(), // TODO: produce errors
+        },
+        '|' => match chars.peek() {
+            Some(c) => match c {
+                '|' => {
+                    chars.next();
+                    return Token::new(Type::Operator(Operator::Or));
+                }
+                _ => Token::none(), // TODO: produce errors
+            },
+            None => Token::none(), // TODO: produce errors
+        },
+        _ => Token::none(), // TODO: produce errors
+    }
+}
+
 fn lex_helper(mut chars: Peekable<Chars>) -> Vec<Token> {
     let mut tokens = Vec::new();
     while let Some(c) = chars.peek() {
@@ -152,6 +223,10 @@ fn lex_helper(mut chars: Peekable<Chars>) -> Vec<Token> {
             ',' => {
                 chars.next();
                 tokens.push(Token::new(Type::Comma));
+            }
+            '+' | '-' | '*' | '/' | '=' | '!' | '%' | '>' | '<' | '&' | '|' => {
+                tokens.push(lex_operator(&mut chars))
+            }
             _ if c.is_alphanumeric() => {
                 tokens.push(lex_indetifier(&mut chars));
             }
