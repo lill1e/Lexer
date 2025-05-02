@@ -47,6 +47,12 @@ impl Token {
     fn new(token_type: Type) -> Self {
         return Token { token_type };
     }
+
+    fn none() -> Self {
+        return Token {
+            token_type: Type::None,
+        };
+    }
 }
 
 fn lex_string(chars: &mut Peekable<Chars>) -> Result<Token, &'static str> {
