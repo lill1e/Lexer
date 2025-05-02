@@ -248,7 +248,7 @@ fn lex(s: String) -> Vec<Token> {
 
 #[cfg(test)]
 mod tests {
-    use crate::{Token, Type, lex};
+    use crate::{Keyword, Operator, Token, Type, lex};
 
     #[test]
     fn test_basic() {
@@ -271,6 +271,16 @@ mod tests {
                 Token::new(Type::Identifier("empty".to_string())),
                 Token::new(Type::LeftParen),
                 Token::new(Type::RightParen)
+            ]
+        );
+        assert_eq!(
+            lex("1 + 1 == 5".to_string()),
+            vec![
+                Token::new(Type::Number(1)),
+                Token::new(Type::Operator(Operator::Plus)),
+                Token::new(Type::Number(1)),
+                Token::new(Type::Operator(Operator::DoubleEquals)),
+                Token::new(Type::Number(5))
             ]
         );
     }
