@@ -31,6 +31,9 @@ enum Type {
     Identifier(String),
     LeftParen,
     RightParen,
+    LeftBrace,
+    RightBrace,
+    Dot,
     Comma,
     None,
 }
@@ -128,6 +131,21 @@ fn lex_helper(mut chars: Peekable<Chars>) -> Vec<Token> {
                 chars.next();
                 tokens.push(Token::new(Type::RightParen));
             }
+            '{' => {
+                chars.next();
+                tokens.push(Token::new(Type::LeftBrace));
+            }
+            '}' => {
+                chars.next();
+                tokens.push(Token::new(Type::RightBrace));
+            }
+            '.' => {
+                chars.next();
+                tokens.push(Token::new(Type::Dot));
+            }
+            ',' => {
+                chars.next();
+                tokens.push(Token::new(Type::Comma));
             _ if c.is_alphanumeric() => {
                 tokens.push(lex_indetifier(&mut chars));
             }
