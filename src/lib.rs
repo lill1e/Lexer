@@ -1,8 +1,19 @@
 use std::{iter::Peekable, str::Chars};
 
+const KEYWORDS: [(&'static str, Keyword); 4] = [
+    ("define", Keyword::Define),
+    ("true", Keyword::True),
+    ("false", Keyword::False),
+    ("if", Keyword::If),
+];
+
 enum Keyword {
 #[derive(Debug, PartialEq, Eq, Clone)]
     Define,
+    True,
+    False,
+    None,
+    If,
 }
 #[derive(Debug, PartialEq, Eq)]
 enum Operator {
