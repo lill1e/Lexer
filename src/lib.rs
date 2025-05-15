@@ -48,9 +48,9 @@ enum Type {
     None,
 }
 
-#[derive(Debug, PartialEq, Eq)]
 struct Token {
     token_type: Type,
+#[derive(Debug, PartialEq, Eq, Clone)]
 }
 
 impl Token {
