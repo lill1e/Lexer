@@ -4,7 +4,6 @@ use std::{iter::Peekable, str::Chars};
 enum Keyword {
     Define,
 }
-
 #[derive(Debug, PartialEq, Eq)]
 enum Operator {
     Plus,
@@ -285,5 +284,3 @@ mod tests {
         );
     }
 }
-
-fn main() {}
