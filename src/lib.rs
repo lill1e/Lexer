@@ -42,6 +42,8 @@ impl Keyword {
     Less,
     GreaterEqual,
     LessEqual,
+    And,
+    Or,
 }
 
 #[derive(Debug, PartialEq, Eq)]
