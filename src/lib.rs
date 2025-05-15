@@ -90,14 +90,23 @@ fn lex_number(chars: &mut Peekable<Chars>) -> Token {
     return Token::new(Type::Number(accumulator));
 }
 
-fn lex_indetifier(chars: &mut Peekable<Chars>) -> Token {
+fn lex_alphanumeric(chars: &mut Peekable<Chars>) -> Token {
     let mut accumulator: String = String::new();
     while let Some(c) = chars.next_if(|&c| c.is_alphanumeric()) {
         accumulator.push(c);
     }
-    Token {
-        token_type: Type::Identifier(accumulator),
-    }
+    Token::new(
+        match KEYWORDS
+            .map(|k| k.0)
+            .contains(&(&accumulator).clone().as_str())
+        {
+            true => match Keyword::from_str(accumulator) {
+                Keyword::None => Type::None,
+                keyword => Type::Keyword(keyword),
+            },
+            false => Type::Identifier(accumulator),
+        },
+    )
 }
 
 fn lex_operator(chars: &mut Peekable<Chars>) -> Token {
