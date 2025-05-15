@@ -82,29 +82,12 @@ fn lex_string(chars: &mut Peekable<Chars>) -> Result<Token, &'static str> {
     }
 }
 
-fn lex_number(chars: &mut Peekable<Chars>) -> Result<Token, &'static str> {
+fn lex_number(chars: &mut Peekable<Chars>) -> Token {
     let mut accumulator: u32 = 0;
-    let mut error = false;
-    loop {
-        match chars.next() {
-            Some(c) => match c {
-                '0'..='9' => accumulator = accumulator * 10 + c.to_digit(10).unwrap(),
-                ' ' => break,
-                _ => {
-                    error = true;
-                    break;
-                }
-            },
-            None => break,
-        };
+    while let Some(c) = chars.next_if(|&c| c.is_numeric()) {
+        accumulator = accumulator * 10 + c.to_digit(10).unwrap()
     }
-    if error {
-        return Err("Non-terminated String");
-    } else {
-        Ok(Token {
-            token_type: Type::Number(accumulator),
-        })
-    }
+    return Token::new(Type::Number(accumulator));
 }
 
 fn lex_indetifier(chars: &mut Peekable<Chars>) -> Token {
