@@ -299,5 +299,43 @@ mod tests {
                 Token::new(Type::Number(5))
             ]
         );
+        assert_eq!(
+            lex("define x = 5".to_string()),
+            vec![
+                Token::new(Type::Keyword(Keyword::Define)),
+                Token::new(Type::Identifier("x".to_string())),
+                Token::new(Type::Operator(Operator::Equals)),
+                Token::new(Type::Number(5))
+            ]
+        );
+        assert_eq!(
+            lex("true".to_string()),
+            vec![Token::new(Type::Keyword(Keyword::True))]
+        );
+        assert_eq!(
+            lex("if true".to_string()),
+            vec![
+                Token::new(Type::Keyword(Keyword::If)),
+                Token::new(Type::Keyword(Keyword::True)),
+            ]
+        );
+        assert_eq!(
+            lex("if 4 == 4".to_string()),
+            vec![
+                Token::new(Type::Keyword(Keyword::If)),
+                Token::new(Type::Number(4)),
+                Token::new(Type::Operator(Operator::DoubleEquals)),
+                Token::new(Type::Number(4))
+            ]
+        );
+        assert_eq!(
+            lex("if 4 == 5".to_string()),
+            vec![
+                Token::new(Type::Keyword(Keyword::If)),
+                Token::new(Type::Number(4)),
+                Token::new(Type::Operator(Operator::DoubleEquals)),
+                Token::new(Type::Number(5))
+            ]
+        );
     }
 }
