@@ -267,7 +267,7 @@ mod tests {
     use crate::{Keyword, Operator, Token, Type, lex};
 
     #[test]
-    fn test_basic() {
+    fn test() {
         assert_eq!(
             lex("\"meow\"".to_string()),
             vec![Token::new(Type::String("meow".to_string()))]
