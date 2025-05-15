@@ -7,15 +7,14 @@ const KEYWORDS: [(&'static str, Keyword); 4] = [
     ("if", Keyword::If),
 ];
 
-enum Keyword {
 #[derive(Debug, PartialEq, Eq, Clone)]
+pub enum Keyword {
     Define,
     True,
     False,
     None,
     If,
 }
-enum Operator {
 
 impl Keyword {
     pub fn from_str(s: String) -> Keyword {
@@ -29,6 +28,7 @@ impl Keyword {
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
+pub enum Operator {
     Plus,
     Minus,
     Star,
@@ -46,8 +46,8 @@ impl Keyword {
     Or,
 }
 
-enum Type {
 #[derive(Debug, PartialEq, Eq, Clone)]
+pub enum Type {
     String(String),
     Number(u32),
     Keyword(Keyword),
@@ -63,17 +63,17 @@ enum Type {
     None,
 }
 
-struct Token {
-    token_type: Type,
 #[derive(Debug, PartialEq, Eq, Clone)]
+pub struct Token {
+    pub token_type: Type,
 }
 
 impl Token {
-    fn new(token_type: Type) -> Self {
+    pub fn new(token_type: Type) -> Self {
         return Token { token_type };
     }
 
-    fn none() -> Self {
+    pub fn none() -> Self {
         return Token {
             token_type: Type::None,
         };
@@ -258,7 +258,7 @@ fn lex_helper(mut chars: Peekable<Chars>) -> Vec<Token> {
     tokens
 }
 
-fn lex(s: String) -> Vec<Token> {
+pub fn lex(s: String) -> Vec<Token> {
     return lex_helper(s.chars().peekable());
 }
 
