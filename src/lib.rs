@@ -191,10 +191,7 @@ fn lex_helper(mut chars: Peekable<Chars>) -> Vec<Token> {
                     Err(_) => (), // TODO: produce errors
                 }
             }
-            '0'..='9' => match lex_number(&mut chars) {
-                Ok(t) => tokens.push(t),
-                Err(_) => (), // TODO: produce errors
-            },
+            '0'..='9' => tokens.push(lex_number(&mut chars)),
             '(' => {
                 chars.next();
                 tokens.push(Token::new(Type::LeftParen));
