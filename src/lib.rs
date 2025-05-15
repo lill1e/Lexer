@@ -46,8 +46,8 @@ impl Keyword {
     Or,
 }
 
-#[derive(Debug, PartialEq, Eq)]
 enum Type {
+#[derive(Debug, PartialEq, Eq, Clone)]
     String(String),
     Number(u32),
     Keyword(Keyword),
