@@ -1,7 +1,7 @@
 use std::{iter::Peekable, str::Chars};
 
-#[derive(Debug, PartialEq, Eq)]
 enum Keyword {
+#[derive(Debug, PartialEq, Eq, Clone)]
     Define,
 }
 #[derive(Debug, PartialEq, Eq)]
