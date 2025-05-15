@@ -219,9 +219,8 @@ fn lex_helper(mut chars: Peekable<Chars>) -> Vec<Token> {
             '+' | '-' | '*' | '/' | '=' | '!' | '%' | '>' | '<' | '&' | '|' => {
                 tokens.push(lex_operator(&mut chars))
             }
-            _ if c.is_alphanumeric() => {
-                tokens.push(lex_indetifier(&mut chars));
             }
+            _ if c.is_alphanumeric() => tokens.push(lex_alphanumeric(&mut chars)),
             _ => {
                 chars.next();
             }
