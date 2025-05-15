@@ -1,4 +1,4 @@
-use std::{iter::Peekable, str::Chars};
+use std::{iter::Peekable, mem, str::Chars};
 
 const KEYWORDS: [(&'static str, Keyword); 4] = [
     ("define", Keyword::Define),
@@ -77,6 +77,15 @@ impl Token {
         return Token {
             token_type: Type::None,
         };
+    }
+
+    pub fn is_types(&self, types: Vec<Type>) -> bool {
+        for t in types {
+            if mem::discriminant(&self.token_type) == mem::discriminant(&t) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
