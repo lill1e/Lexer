@@ -17,6 +17,17 @@ enum Keyword {
 }
 #[derive(Debug, PartialEq, Eq)]
 enum Operator {
+
+impl Keyword {
+    pub fn from_str(s: String) -> Keyword {
+        for p in KEYWORDS {
+            if s == p.0 {
+                return p.1;
+            }
+        }
+        return Keyword::None;
+    }
+}
     Plus,
     Minus,
     Star,
