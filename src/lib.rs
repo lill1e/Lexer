@@ -15,7 +15,6 @@ enum Keyword {
     None,
     If,
 }
-#[derive(Debug, PartialEq, Eq)]
 enum Operator {
 
 impl Keyword {
@@ -28,6 +27,8 @@ impl Keyword {
         return Keyword::None;
     }
 }
+
+#[derive(Debug, PartialEq, Eq, Clone)]
     Plus,
     Minus,
     Star,
