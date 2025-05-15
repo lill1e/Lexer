@@ -59,6 +59,7 @@ enum Type {
     RightBrace,
     Dot,
     Comma,
+    Semicolon,
     None,
 }
 
