@@ -1,10 +1,11 @@
 use std::{iter::Peekable, mem, str::Chars};
 
-const KEYWORDS: [(&'static str, Keyword); 4] = [
+const KEYWORDS: [(&'static str, Keyword); 5] = [
     ("define", Keyword::Define),
     ("true", Keyword::True),
     ("false", Keyword::False),
     ("if", Keyword::If),
+    ("null", Keyword::Null),
 ];
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -14,6 +15,7 @@ pub enum Keyword {
     False,
     None,
     If,
+    Null,
 }
 
 impl Keyword {
