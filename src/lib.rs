@@ -78,15 +78,6 @@ impl Token {
             token_type: Type::None,
         };
     }
-
-    pub fn is_types(&self, types: Vec<Type>) -> bool {
-        for t in types {
-            if mem::discriminant(&self.token_type) == mem::discriminant(&t) {
-                return true;
-            }
-        }
-        return false;
-    }
 }
 
 fn lex_string(chars: &mut Peekable<Chars>) -> Result<Token, &'static str> {
