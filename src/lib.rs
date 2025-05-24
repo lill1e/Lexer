@@ -1,4 +1,4 @@
-use std::{iter::Peekable, mem, str::Chars};
+use std::{fmt, iter::Peekable, str::Chars};
 
 const KEYWORDS: [(&'static str, Keyword); 5] = [
     ("define", Keyword::Define),
