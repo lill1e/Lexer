@@ -113,7 +113,7 @@ fn lex_string(chars: &mut Peekable<Chars>) -> Result<Token, &'static str> {
 fn lex_number(chars: &mut Peekable<Chars>) -> Token {
     let mut accumulator: i32 = 0;
     while let Some(c) = chars.next_if(|&c| c.is_numeric()) {
-        accumulator = accumulator * 10 + c.to_digit(10).unwrap()
+        accumulator = accumulator * 10 + c.to_digit(10).unwrap() as i32;
     }
     return Token::new(Type::Number(accumulator));
 }
